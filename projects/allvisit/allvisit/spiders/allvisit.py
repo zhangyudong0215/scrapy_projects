@@ -14,6 +14,7 @@ class Myspider(scrapy.Spider):
         yield Request(url, self.parse)
 
     def parse(self, response):
+        yield self.get_info(response)
         max_page_index = BeautifulSoup(response.text, 'lxml').find(
             'a', class_='last').get_text()
         for index in range(1, int(max_page_index)+1):
